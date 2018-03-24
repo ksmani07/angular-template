@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-
+import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { AppComponent } from './app.component';
 
 // Import containers
@@ -64,14 +65,35 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-
+import {LoginService} from './services/login.service';
+import {LoaderService} from './services/loader.service';
+import {FlashService} from './services/flash.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthGuard} from './services/authguard.service';
+import {UserService} from './services/user.service';
+import {AuthInterceptor} from './views/shares/auth.interceptor';
+import { DataTablesModule } from 'angular-datatables';
+import {DataService} from './services/data.service';
+import {ReactiveFormsModule} from '@angular/forms';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ToasterModule,
+    ChartsModule,
+    DataTablesModule,
+    SweetAlert2Module.forRoot({
+      buttonsStyling: false,
+      customClass: 'modal-content',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn'
+    })
   ],
   declarations: [
     AppComponent,
@@ -79,10 +101,20 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     ...APP_COMPONENTS,
     ...APP_DIRECTIVES
   ],
-  // providers: [{
+  providers: [
+  //   {
   //   provide: LocationStrategy,
   //   useClass: HashLocationStrategy
-  // }],
+  // }
+    AuthGuard,
+    LoaderService,
+    LoginService,
+    UserService,
+    ToasterService,
+    FlashService,
+    DataService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@
  * CoreUI - Open Source Bootstrap Admin Template
  * @version v1.0.10
  * @link http://coreui.io
- * Copyright (c) 2018 creativeLabs Łukasz Holeczek
+ * Copyright (c) 2018 sdtechnology
  * @license MIT
  */
 
@@ -11,6 +11,9 @@
 
 // Import Bootstrap source files
 @import "node_modules/bootstrap/scss/bootstrap";
+
+// Import flash message files
+@import 'node_modules/angular2-toaster/src/toaster';
 
 // Override core variables
 @import "core-variables";

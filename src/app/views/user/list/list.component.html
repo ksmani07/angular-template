@@ -1,0 +1,24 @@
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover table table-responsive-sm table-bordered table-striped table-sm">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Contact No</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let person of persons;let i=index,let j=index;">
+    <td>{{ j+1 }}</td>
+    <td>{{ person.profile?person.profile.firstname:'' }}</td>
+    <td>{{ person.profile?person.profile.lastname:'' }}</td>
+    <td>{{ person.profile?person.profile.email:''}}</td>
+    <td>{{ person.profile?person.profile.mobileno:'' }}</td>
+    <td><span class='badge' [ngClass]="person.auth.status?'badge-success':'badge-danger'"> {{ person.auth.status?'Active':'Deacive'}}</span></td>
+    <td><a class="btn btn-outline-warning" (click)="onEdit(person._id,i)"><i class="icon-pencil icons font-1xl"></i> Edit</a>  <a class="btn btn-outline-danger" (click)="onDelete(person._id , i )"><i class="icon-trash icons font-1xl"></i> Delete</a></td>
+  </tr>
+  </tbody>
+</table>

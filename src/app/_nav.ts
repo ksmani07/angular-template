@@ -7,5 +7,10 @@ export const navigation = [
       variant: 'info',
       text: 'NEW'
     }
+  },
+  {
+    name: 'User',
+    url: '/user/list',
+    icon: 'icon-user'
   }
 ];

@@ -6,6 +6,7 @@ import {
   FullLayoutComponent,
   SimpleLayoutComponent
 } from './containers';
+import {AuthGuard} from './services/authguard.service';
 
 export const routes: Routes = [
   {
@@ -14,15 +15,28 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
    {
-    path: 'dashboard',
+    path: 'dashboard', canActivate: [AuthGuard],
     component: FullLayoutComponent,
     data: {
-      title: 'Home'
+      title: 'Dashboard'
     },
     children: [
       {
         path: '',
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+      }
+    ]
+  },
+  {
+    path: 'user', canActivate: [AuthGuard],
+    component: FullLayoutComponent,
+    data: {
+      title: 'user'
+    },
+    children: [
+      {
+        path: '',
+        loadChildren: './views/user/user.module#UserModule'
       }
     ]
   },
@@ -37,7 +51,8 @@ export const routes: Routes = [
         path: 'login',
         loadChildren: './login/login.module#LoginModule'
       }
-    ]}
+    ]},
+  {path: '**', redirectTo: 'login', pathMatch: 'full' , canActivate: [AuthGuard]}
 ];
 
 @NgModule({

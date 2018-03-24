@@ -12,6 +12,7 @@ const routes: Routes = [
       title: 'Dashboard'
     }
   }
+
 ];
 
 @NgModule({
